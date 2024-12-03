@@ -7,13 +7,13 @@ The contributing guidelines for this project are heavily inspired by, and borrow
 ## Welcome!
 
 This project accepts contributions of code and documentation from the community. 
-These contributions can be made in the form of Issues or [Pull Requests](http://help.github.com/send-pull-requests/) on the [library's repository](https://github.com/ericsizemore/php-project-template).
+These contributions can be made in the form of Issues or [Pull Requests](http://help.github.com/send-pull-requests/) on the [library's repository](https://github.com/ericsizemore/consistent-hash).
 
 Here are some examples how you can contribute:
 
-* [Report a bug](https://github.com/ericsizemore/php-project-template/issues/new?labels=bug,unverified&template=1-bug_report.yml)
-* [Propose a new feature](https://github.com/ericsizemore/php-project-template/issues/new?labels=enhancement,unverified&template=2-feature_request.yml)
-* [Send a pull request](https://github.com/ericsizemore/php-project-template/pulls)
+* [Report a bug](https://github.com/ericsizemore/consistent-hash/issues/new?labels=bug,unverified&template=1-bug_report.yml)
+* [Propose a new feature](https://github.com/ericsizemore/consistent-hash/issues/new?labels=enhancement,unverified&template=2-feature_request.yml)
+* [Send a pull request](https://github.com/ericsizemore/consistent-hash/pulls)
 
 I look forward to your contributions! 
 
@@ -23,14 +23,14 @@ Please note that this project is released with a [Contributor Code of Conduct](C
 
 ## Any contributions you make will be under the MIT License
 
-When you submit code changes, your submissions are understood to be under the same [MIT License](https://github.com/ericsizemore/php-project-template/blob/main/LICENSE) that covers the project. By contributing to this project, you agree that your contributions will be licensed under its MIT License.
+When you submit code changes, your submissions are understood to be under the same [MIT License](https://github.com/ericsizemore/consistent-hash/blob/main/LICENSE) that covers the project. By contributing to this project, you agree that your contributions will be licensed under its MIT License.
 
 ## Workflow for Pull Requests
 
 - Fork the repository.
 - Create your branch from `main` if you plan to implement new functionality or change existing code significantly.
   - Create your branch from the oldest branch that is affected by the bug if you plan to fix a bug.
-  - Pull requests for bug fixes must be made for the oldest branch that is [supported](https://github.com/ericsizemore/php-project-template/blob/main/SECURITY.md).
+  - Pull requests for bug fixes must be made for the oldest branch that is [supported](https://github.com/ericsizemore/consistent-hash/blob/main/SECURITY.md).
 - Implement your change and add tests for it.
 - Ensure the test suite passes.
 - Ensure the code complies with our coding guidelines (see below).
@@ -39,7 +39,7 @@ When you submit code changes, your submissions are understood to be under the sa
 Please make sure you have [set up your username and email address](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup) for use with Git.
 You are encouraged to [sign your Git commits with your GPG key](https://docs.github.com/en/github/authenticating-to-github/signing-commits).
 
-[Backwards compatibility](https://github.com/ericsizemore/php-project-template/blob/main/backward-compatibility.md) breaks in this project are being kept to an absolute minimum. Please take this into account when proposing changes.
+[Backwards compatibility](https://github.com/ericsizemore/consistent-hash/blob/main/backward-compatibility.md) breaks in this project are being kept to an absolute minimum. Please take this into account when proposing changes.
 
 ## Guidelines
 
@@ -50,8 +50,8 @@ Before we look into how, here are the guidelines. If your Pull Requests fail to 
 The following commands can be used to perform the initial checkout of this library:
 
 ```bash
-$ git clone https://github.com/ericsizemore/php-project-template.git
-$ cd php-project-template
+$ git clone https://github.com/ericsizemore/consistent-hash.git
+$ cd consistent-hash
 ```
 
 Install dependencies using [Composer](https://getcomposer.org/):

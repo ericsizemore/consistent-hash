@@ -10,7 +10,7 @@
 
 If there are any vulnerabilities discovered within this library, please do not hesitate to _report them_. 
 
-To report a security issue, please use the GitHub Security Advisory ["Report a Vulnerability"](https://github.com/ericsizemore/php-project-template/security/advisories/new) tab. If you have a fix for the issue, that is most welcome -- please attach or summarize it in your message!
+To report a security issue, please use the GitHub Security Advisory ["Report a Vulnerability"](https://github.com/ericsizemore/consistent-hash/security/advisories/new) tab. If you have a fix for the issue, that is most welcome -- please attach or summarize it in your message!
 
 I will evaluate the vulnerability and, if necessary, release a fix or mitigating steps to address it. I will contact you to let you know the outcome, and will credit you in the report.
 

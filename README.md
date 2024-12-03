@@ -88,7 +88,7 @@ And thanks to the library this is a fork of, [flexihash/flexihash](https://githu
 
 See [CONTRIBUTING](./CONTRIBUTING.md).
 
-Bugs and feature requests are tracked on [GitHub](https://github.com/ericsizemore/php-project-template/issues).
+Bugs and feature requests are tracked on [GitHub](https://github.com/ericsizemore/consistent-hash/issues).
 
 ### Contributor Covenant Code of Conduct
 
