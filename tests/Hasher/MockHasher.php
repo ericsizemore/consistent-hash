@@ -18,8 +18,7 @@ namespace Esi\ConsistentHash\Tests\Hasher;
 use Esi\ConsistentHash\Hasher\HasherInterface;
 
 /**
- * @author Paul Annesley
- * @license http://www.opensource.org/licenses/mit-license.php
+ * @internal
  */
 class MockHasher implements HasherInterface
 {
