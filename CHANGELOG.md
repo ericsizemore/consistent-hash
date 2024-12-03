@@ -1,56 +1,56 @@
-# Change Log
-All notable changes to this project will be documented in this file
-which adheres to the guidelines at http://keepachangelog.com/.
+# Changelog
 
-This project adheres to [Semantic Versioning](http://semver.org/).
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
+
 
 ## [Unreleased]
-## [2.0.2] - 2016-04-22
-### Changed
-- Pinned symfony component version to pass tests on 5.4.x.
-- Updated coveralls config for new version.
-- Tweaked README.md to recommend install version 2.
-- Sorted phpcs errors.
 
-## [2.0.1] - 2016-04-22
-### Changed
-- Make MD5 hasher return an integer to prevent incorrect remapping
-due to PHP treating numeric string array keys as integers.
+This library is based on a fork of [flexihash/flexihash](https://github.com/pda/flexihash) v3.0.0 by
+ * Paul Annesley <paul@annesley.cc>
+ * Dom Morgan <dom@d3r.com> 
 
-## [2.0.0] - 2015-10-08
+**Note:** This is not a drop-in replacement for flexihash as there are various BC breaks.
+
 ### Added
-- This CHANGELOG.md file.
-- A ROADMAP.md file.
-- PSR-4 autoloading.
-- Introduce namespacing.
-- Full PSR-2 support.
+
+  * New dev dependencies:
+    * `esi/phpunit-coverage-check` - to check code coverage percentage based on PHPUnit's clover output
+    * `friendsofphp/php-cs-fixer`  - to check and/or fix code based on my personal coding standards
+    * `phpbench/phpbench` - to run benchmarks found in `tests/Bench`
+    * PHPStan for static analysis
+      * `phpstan/extension-installer`
+      * `phpstan/phpstan`
+      * `phpstan/phpstan-deprecation-rules`
+      * `phpstan/phpstan-phpunit`
+      * `phpstan/phpstan-strict-rules`
+    * `phpunit/phpunit` - to perform unit tests
+    * Psalm for static analysis
+      * `psalm/plugin-phpunit`
+      * `vimeo/psalm`
 
 ### Changed
-- Reorganisation of files.
-- Updated readme to reflect composer installation recommendation.
+
+  * Updated namespace to `Esi\ConsistentHash`
+  * Bumped minimum PHP version to 8.2
+  * Updated throughout to add proper parameter, property, and return types
+  * Updated throughout per coding standards via PHP-CS-Fixer (PSR-12/PER-CS)
+  * Updated throughout to add psalm and phpstan extended types to docblocks
+  * Various fixes throughout to resolve issues reported by both PHPStan and Psalm
+  * Updated composer.json to add keywords, support information, and scripts
+  * Normalized composer.json
+  * Performance enhancements
+  * Changed `Exception` class to `TargetException` and moved to `Esi\ConsistentHash\Exception` namespace
+    * `TargetException` now extends `\RuntimeException` instead of `\Exception`
+    * Added static methods that handle creating the exception and message
 
 ### Removed
-- PHP<5.4 support
 
-## [1.0.0] - 2015-10-16
-### Added
-- Setup automatic testing with Travis.
-- Monitor code coverage with Coveralls.
-- Get as close to PSR-2 as possible without changing class names.
-
-### Changed
-- Migrate tests to PHPUnit.
-
-### Removed
-- Legacy autoloader.
-
-## [0.1.0] - 2012-04-04
-Posterity release
+  * Removed TravisCI and Coveralls
+  * Removed tests/BenchmarkTest in favor of just using a slimmed down benchmark via PHPBench
 
 
-[Unreleased]: https://github.com/pda/flexihash/compare/v2.0.2...master
-[2.0.2]: https://github.com/pda/flexihash/compare/v2.0.1...v2.0.2
-[2.0.1]: https://github.com/pda/flexihash/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/pda/flexihash/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/pda/flexihash/compare/v0.1.0...v1.0.0
-[0.1.0]: https://github.com/pda/flexihash/tree/v0.1.0
+[unreleased]: https://github.com/ericsizemore/consistent-hash/tree/main
+[1.0.0]: https://github.com/ericsizemore/consistent-hash/releases/tag/1.0.0

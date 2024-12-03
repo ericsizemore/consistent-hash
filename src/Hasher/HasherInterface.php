@@ -1,13 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Flexihash\Hasher;
+/**
+ * This file is part of Esi\ConsistentHash.
+ *
+ * (c) Eric Sizemore <admin@secondversion.com>
+ * (c) Paul Annesley <paul@annesley.cc>
+ *
+ * This source file is subject to the MIT license. For the full copyright and
+ * license information, please view the LICENSE file that was distributed with
+ * this source code.
+ */
+
+namespace Esi\ConsistentHash\Hasher;
 
 /**
  * Hashes given values into a sortable fixed size address space.
- *
- * @author Paul Annesley
- * @license http://www.opensource.org/licenses/mit-license.php
  */
 interface HasherInterface
 {
@@ -17,8 +26,7 @@ interface HasherInterface
      * The data must have 0xFFFFFFFF possible values, and be sortable by
      * PHP sort functions using SORT_REGULAR.
      *
-     * @param string
-     * @return mixed A sortable format with 0xFFFFFFFF possible values
+     * @return int A sortable format with 0xFFFFFFFF possible values
      */
-    public function hash($string);
+    public function hash(string $string): int;
 }

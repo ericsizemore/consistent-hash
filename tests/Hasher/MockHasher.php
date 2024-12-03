@@ -1,9 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
-namespace Flexihash\Tests\Hasher;
+/**
+ * This file is part of Esi\ConsistentHash.
+ *
+ * (c) Eric Sizemore <admin@secondversion.com>
+ * (c) Paul Annesley <paul@annesley.cc>
+ *
+ * This source file is subject to the MIT license. For the full copyright and
+ * license information, please view the LICENSE file that was distributed with
+ * this source code.
+ */
 
-use Flexihash\Hasher\HasherInterface;
+namespace Esi\ConsistentHash\Tests\Hasher;
+
+use Esi\ConsistentHash\Hasher\HasherInterface;
 
 /**
  * @author Paul Annesley
@@ -11,15 +23,15 @@ use Flexihash\Hasher\HasherInterface;
  */
 class MockHasher implements HasherInterface
 {
-    private $hashValue;
+    public function __construct(private int $hashValue) {}
 
-    public function setHashValue($hash): void
-    {
-        $this->hashValue = $hash;
-    }
-
-    public function hash($value)
+    public function hash(string $string): int
     {
         return $this->hashValue;
+    }
+
+    public function setHashValue(int $hash): void
+    {
+        $this->hashValue = $hash;
     }
 }
