@@ -29,35 +29,39 @@ final class LookupBench
     private ConsistentHash $hasher;
 
     /** @var list<string> */
-    private array $radomKeys = [];
+    private array $randomKeys = [];
 
     public function __construct()
     {
         $this->hasher = new ConsistentHash(new Md5Hasher(), 64);
+
         foreach (range(1, 10) as $i) {
             $this->hasher->addTarget('target_' . $i, 1);
         }
 
-        // pre-generate random lookup keys outside of measurement function
-        foreach (range(1, 80000) as $i) {
-            $this->radomKeys[] = bin2hex(random_bytes(12));
+        // Generate random lookup keys outside the measurement function.
+        foreach (range(1, 100_000) as $ignored) {
+            $this->randomKeys[] = bin2hex(random_bytes(12));
         }
     }
 
-    /** @param array{count: int} $params */
+    /**
+     * @param array{count: int} $params
+     */
     #[ParamProviders(['provideLookupCount'])]
     public function benchLookup(array $params): void
     {
         foreach (range(0, $params['count'] - 1) as $i) {
-            $this->hasher->lookup($this->radomKeys[$i]);
+            $this->hasher->lookup($this->randomKeys[$i]);
         }
     }
 
     public function provideLookupCount(): Generator
     {
-        yield '10000 lookups' => ['count' => 10000];
-        yield '20000 lookups' => ['count' => 20000];
-        yield '40000 lookups' => ['count' => 40000];
-        yield '80000 lookups' => ['count' => 80000];
+        yield '10_000 lookups' => ['count' => 10_000];
+        yield '20_000 lookups' => ['count' => 20_000];
+        yield '40_000 lookups' => ['count' => 40_000];
+        yield '80_000 lookups' => ['count' => 80_000];
+        yield '100_000 lookups' => ['count' => 100_000];
     }
 }
