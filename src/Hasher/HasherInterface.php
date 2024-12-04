@@ -24,9 +24,9 @@ interface HasherInterface
      * Hashes the given string into a 32bit address space.
      *
      * The data must have 0xFFFFFFFF possible values, and be sortable by
-     * PHP sort functions using SORT_REGULAR.
+     * PHP sort functions using \SORT_REGULAR.
      *
-     * @return int A sortable format with 0xFFFFFFFF possible values
+     * @return int A sortable format with 0xFFFFFFFF possible values.
      */
     public function hash(string $string): int;
 }

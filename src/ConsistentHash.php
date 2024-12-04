@@ -26,6 +26,8 @@ use function array_values;
 use function ksort;
 use function round;
 
+use const SORT_REGULAR;
+
 /**
  * A simple consistent hashing implementation with pluggable hash algorithms.
  */
@@ -89,7 +91,7 @@ class ConsistentHash
     }
 
     /**
-     * @throws TargetException
+     * @throws TargetException if the $target already exists.
      */
     public function addTarget(string $target, float $weight = 1): void
     {
@@ -99,13 +101,13 @@ class ConsistentHash
 
         $this->targetToPositions[$target] = [];
 
-        // hash the target into multiple positions
+        // Hash the target into multiple positions.
         $partitionCount = round($this->replicas * $weight);
 
         for ($i = 0; $i < $partitionCount; ++$i) {
             $position                           = $this->hasher->hash($target . $i);
-            $this->positionToTarget[$position]  = $target; // lookup
-            $this->targetToPositions[$target][] = $position; // target removal
+            $this->positionToTarget[$position]  = $target; // Lookup.
+            $this->targetToPositions[$target][] = $position; // Target removal.
         }
 
         $this->positionToTargetSorted = false;
@@ -117,7 +119,7 @@ class ConsistentHash
      *
      * @param array<string> $targets
      *
-     * @throws TargetException
+     * @throws TargetException if any of $targets already exists.
      */
     public function addTargets(array $targets, float $weight = 1): void
     {
@@ -139,7 +141,7 @@ class ConsistentHash
     /**
      * Looks up the target for the given resource.
      *
-     * @throws TargetException when no targets defined.
+     * @throws TargetException when no targets are defined.
      */
     public function lookup(string $resource): string
     {
@@ -191,7 +193,9 @@ class ConsistentHash
         return array_values(array_unique($results));
     }
 
-    /** @throws TargetException when target does not exist. */
+    /**
+     * @throws TargetException when target does not exist.
+     */
     public function removeTarget(string $target): void
     {
         if (!isset($this->targetToPositions[$target])) {
@@ -223,7 +227,7 @@ class ConsistentHash
         }
 
         if ($value >= $sortedArray[$high]) {
-            return $arraySize; // out of bounds
+            return $arraySize; // Out of bounds.
         }
 
         while ($low < $high) {
@@ -244,12 +248,13 @@ class ConsistentHash
      */
     private function sortPositionTargets(): void
     {
-        // sort by key (position) if not already
+        // Sort by key (position), if not already.
         if ($this->positionToTargetSorted) {
             return;
         }
 
-        ksort($this->positionToTarget);
+        ksort($this->positionToTarget, SORT_REGULAR);
+
         $this->positionToTargetSorted = true;
         $this->sortedPositions        = array_keys($this->positionToTarget);
         $this->positionCount          = \count($this->sortedPositions);
