@@ -40,7 +40,8 @@
         "security": "https://github.com/ericsizemore/consistent-hash/security/policy"
     },
     "require": {
-        "php": "^8.2"
+        "php": "^8.2",
+        "ext-hash": "*"
     },
     "require-dev": {
         "esi/phpunit-coverage-check": "^2.0",

@@ -16,6 +16,13 @@ This library is based on a fork of [flexihash/flexihash](https://github.com/pda/
 
 ### Added
 
+  * Added a [XXH32](https://xxhash.com/) based hasher. This brings the available hashers to:
+    * `Crc32Hasher`
+    * `Md5Hasher`
+    * `Xxh32Hasher`
+  * Added additional benchmarks for the `Crc32` and `Xxh32` based hashers, as the original benchmark was using the MD5 hasher. Adds: 
+    * `tests/Bench/LookupBenchCrc32`
+    * `tests/Bench/LookupBenchXxh32`
   * New dev dependencies:
     * `esi/phpunit-coverage-check` - to check code coverage percentage based on PHPUnit's clover output
     * `friendsofphp/php-cs-fixer`  - to check and/or fix code based on my personal coding standards

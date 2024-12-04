@@ -15,14 +15,12 @@ declare(strict_types=1);
 
 namespace Esi\ConsistentHash\Hasher;
 
-use function hexdec;
-use function md5;
-use function substr;
-
 /**
- * Uses MD5 to hash a value into a 32bit int.
+ * Uses XXH32 to hash a value into a 32bit int.
+ *
+ * @see https://xxhash.com/
  */
-class Md5Hasher implements HasherInterface
+class Xxh32Hasher implements HasherInterface
 {
     /**
      * {@inheritDoc}
@@ -36,6 +34,6 @@ class Md5Hasher implements HasherInterface
      */
     public function hash(string $string): int
     {
-        return (int) hexdec(substr(md5($string), 0, 8));
+        return (int) hexdec(substr(hash('xxh32', $string), 0, 8));
     }
 }
