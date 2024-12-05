@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [Unreleased]
+
+### Added
+
+  * Added a [Murmur3](https://github.com/aappleby/smhasher) based hasher. This brings the available hashers to:
+      * `Crc32Hasher`
+      * `Md5Hasher`
+      * `Murmur3Hasher`
+      * `Xxh32Hasher`
+  * Added a benchmark, and unit test, for the `Murmur3` based hasher. Adds:
+    * `tests/Bench/LookupBenchMurmur3`
+
+
 ## [1.0.0] - 2024-12-04
 
 This library is based on a fork of [flexihash/flexihash](https://github.com/pda/flexihash) v3.0.0 by
@@ -20,7 +33,7 @@ This library is based on a fork of [flexihash/flexihash](https://github.com/pda/
     * `Crc32Hasher`
     * `Md5Hasher`
     * `Xxh32Hasher`
-  * Added additional benchmarks for the `Crc32` and `Xxh32` based hashers, as the original benchmark was using the MD5 hasher. Adds: 
+  * Added benchmarks for the `Crc32` and `Xxh32` based hashers, as the original benchmark was using the MD5 hasher. Adds: 
     * `tests/Bench/LookupBenchCrc32`
     * `tests/Bench/LookupBenchXxh32`
   * New dev dependencies:

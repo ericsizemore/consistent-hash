@@ -16,13 +16,15 @@ declare(strict_types=1);
 namespace Esi\ConsistentHash\Hasher;
 
 /**
- * Uses XXH32 to hash a value into a 32bit int.
+ * Uses MurmurHash3 to hash a value into a 32bit int.
  *
- * @todo Look into xxh64 (64-bit hash), xxh3 (64-bit hash), and xxh128 (128-bit hash)
+ * Note: specifically uses the 'murmur3a' algo in PHP's hash().
  *
- * @see https://xxhash.com/
+ * @todo Look into murmur3c (128-bit hash on x86 architecture) and murmur3f (128-bit hash on x64 architecture)
+ *
+ * @see https://github.com/aappleby/smhasher
  */
-class Xxh32Hasher implements HasherInterface
+class Murmur3Hasher implements HasherInterface
 {
     /**
      * {@inheritDoc}
@@ -36,6 +38,6 @@ class Xxh32Hasher implements HasherInterface
      */
     public function hash(string $string): int
     {
-        return (int) hexdec(substr(hash('xxh32', $string), 0, 8));
+        return (int) hexdec(substr(hash('murmur3a', $string), 0, 8));
     }
 }
