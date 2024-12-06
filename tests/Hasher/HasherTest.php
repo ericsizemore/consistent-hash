@@ -17,6 +17,7 @@ namespace Esi\ConsistentHash\Tests\Hasher;
 
 use Esi\ConsistentHash\ConsistentHash;
 use Esi\ConsistentHash\Hasher\Crc32Hasher;
+use Esi\ConsistentHash\Hasher\Fnv1AHasher;
 use Esi\ConsistentHash\Hasher\Md5Hasher;
 use Esi\ConsistentHash\Hasher\Murmur3Hasher;
 use Esi\ConsistentHash\Hasher\Xxh32Hasher;
@@ -28,6 +29,7 @@ use PHPUnit\Framework\TestCase;
  * @internal
  */
 #[CoversClass(Crc32Hasher::class)]
+#[CoversClass(Fnv1AHasher::class)]
 #[CoversClass(Md5Hasher::class)]
 #[CoversClass(Murmur3Hasher::class)]
 #[CoversClass(Xxh32Hasher::class)]
@@ -53,6 +55,35 @@ class HasherTest extends TestCase
         }
 
         $hashSpace = new ConsistentHash(new Crc32Hasher());
+        $hashSpace->addTargets($targets);
+
+        foreach (range(1, 10) as $i) {
+            self::assertTrue(
+                \in_array($hashSpace->lookup(\sprintf('r%s', $i)), $targets, true),
+                'target must be in list of targets',
+            );
+        }
+    }
+
+    public function testFnv1AHash(): void
+    {
+        $hasher  = new Fnv1AHasher();
+        $result1 = $hasher->hash('test');
+        $result2 = $hasher->hash('test');
+        $result3 = $hasher->hash('different');
+
+        self::assertEquals($result1, $result2);
+        self::assertNotEquals($result1, $result3); // fragile but worthwhile
+    }
+
+    public function testFnv1AHashSpaceLookupsAreValidTargets(): void
+    {
+        $targets = [];
+        foreach (range(1, 10) as $i) {
+            $targets[] = \sprintf('target%s', $i);
+        }
+
+        $hashSpace = new ConsistentHash(new Fnv1AHasher());
         $hashSpace->addTargets($targets);
 
         foreach (range(1, 10) as $i) {

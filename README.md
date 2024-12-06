@@ -65,6 +65,12 @@ Or via composer
 $ composer run-script benchmark
 ```
 
+Benchmarks are also available through PHPUnit, though it is a bit more rudimentary. To see these benchmarks, run:
+
+```bash
+$ composer run-script phpunit:benchmark
+```
+
 ## About
 
 ### Requirements

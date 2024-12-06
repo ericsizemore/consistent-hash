@@ -18,9 +18,9 @@ namespace Esi\ConsistentHash\Tests;
 use Esi\ConsistentHash\ConsistentHash;
 use Esi\ConsistentHash\Exception\TargetException;
 use Esi\ConsistentHash\Hasher\Crc32Hasher;
-use Esi\ConsistentHash\Hasher\Xxh32Hasher;
 use Esi\ConsistentHash\Tests\Hasher\MockHasher;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
@@ -32,7 +32,7 @@ use function range;
 #[CoversClass(ConsistentHash::class)]
 #[CoversClass(TargetException::class)]
 #[UsesClass(Crc32Hasher::class)]
-#[UsesClass(Xxh32Hasher::class)]
+#[Group('default')]
 class ConsistentHashTest extends TestCase
 {
     public function testAddTargetAndGetAllTargets(): void

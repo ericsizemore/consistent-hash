@@ -10,13 +10,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-  * Added a [Murmur3](https://github.com/aappleby/smhasher) based hasher. This brings the available hashers to:
+  * Added [Fnv1-a](https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function) and [Murmur3](https://github.com/aappleby/smhasher) based hashers. This brings the available hashers to:
       * `Crc32Hasher`
+      * `Fnv1AHasher`
       * `Md5Hasher`
       * `Murmur3Hasher`
       * `Xxh32Hasher`
-  * Added a benchmark, and unit test, for the `Murmur3` based hasher. Adds:
+  * Added a benchmark, and unit test, for the `Fnv1-a` and `Murmur3` based hashers. Adds:
+    * `tests/Bench/LookupBenchFnv1A` 
     * `tests/Bench/LookupBenchMurmur3`
+  * Added `tests/BenchmarkTest` back, that was previously removed in 1.0.0.
 
 
 ## [1.0.0] - 2024-12-04

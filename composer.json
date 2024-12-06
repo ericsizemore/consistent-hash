@@ -95,10 +95,12 @@
         "phpcs:fix": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php",
         "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon -vvv",
         "phpunit": "vendor/bin/phpunit",
+        "phpunit:benchmark": "vendor/bin/phpunit --group benchmark --no-coverage",
         "phpunit:migrate": "@phpunit --migrate-configuration",
-        "psalm": "vendor/bin/psalm -c psalm.xml --no-cache --show-info=true",
+        "psalm": "vendor/bin/psalm -c psalm.xml --no-cache --use-baseline=psalm-baseline.xml",
         "psalm:baseline": "@psalm --no-diff --set-baseline=psalm-baseline.xml",
-        "psalm:security": "@psalm --no-diff --taint-analysis",
-        "psalm:shepherd": "@psalm --no-diff --shepherd --stats"
+        "psalm:withinfo": "vendor/bin/psalm -c psalm.xml --no-cache --show-info=true --use-baseline=psalm-baseline.xml",
+        "psalm:security": "@psalm --no-diff --taint-analysis --use-baseline=psalm-baseline.xml",
+        "psalm:shepherd": "@psalm --no-diff --shepherd --stats --use-baseline=psalm-baseline.xml"
     }
 }
