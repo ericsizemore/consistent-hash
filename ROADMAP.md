@@ -14,8 +14,8 @@ A current list of planned changes, features, and/or improvements to be made.
   - [ ] XXH64
   - [ ] XXH128
 - [ ] Improve `BenchmarkTest`.
-- [ ] See if there are any improvements that can be made to the PHPBench benchmarks in `tests/Bench`.
-- [ ] PHPUnit tests improvement; perhaps split tests into multiple classes and groups, be more thorough.
+- [x] See if there are any improvements that can be made to the PHPBench benchmarks in `tests/Bench`.
+- [ ] PHPUnit tests improvement: perhaps split tests into multiple classes and groups, be more thorough.
 
 
 ## v2.0.0

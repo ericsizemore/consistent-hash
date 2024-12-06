@@ -16,10 +16,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
       * `Md5Hasher`
       * `Murmur3Hasher`
       * `Xxh32Hasher`
-  * Added a benchmark, and unit test, for the `Fnv1-a` and `Murmur3` based hashers. Adds:
-    * `tests/Bench/LookupBenchFnv1A` 
+  * Added unit tests for the `Fnv1-a` and `Murmur3` based hashers.
+  * Added `tests/BenchmarkTest` back, which was previously removed in the 1.0.0 release.
+
+### Changed
+
+  * Improved the PHPBench benchmark in `tests/Bench` and reduced to one class.
+
+### Removed
+
+  * With the improvement to `tests/Bench/LookupBench`, the following were no longer needed:
+    * `tests/Bench/LookupBenchCrc32`
+    * `tests/Bench/LookupBenchFnv1A`
     * `tests/Bench/LookupBenchMurmur3`
-  * Added `tests/BenchmarkTest` back, that was previously removed in 1.0.0.
+    * `tests/Bench/LookupBenchXxh32`
 
 
 ## [1.0.0] - 2024-12-04
