@@ -51,6 +51,7 @@ $hash->lookup('object'); // "cache-4"
 
 ## Benchmarks
 
+#### PHPBench
 Performance can be tested with [PHPBench](https://phpbench.readthedocs.io).
 
 ```bash
@@ -59,12 +60,29 @@ $ cd consistent-hash
 $ ./vendor/bin/phpbench run --report=aggregate --iterations=4 --tag=branch_main
 ```
 
-Or via composer
+Or via composer:
 
 ```bash
 $ composer run-script benchmark
 ```
 
+There is also an option to view results as a bar chart:
+
+```bash
+$ composer run-script benchmark:chart
+```
+
+With [opcache](https://www.php.net/manual/en/book.opcache.php) enabled:
+
+```bash
+# Normal, aggregate report
+$ composer run-script benchmark:opcache
+
+# Bar chart
+$ composer run-script benchmark:chart:opcache
+```
+
+#### PHPUnit
 Benchmarks are also available through PHPUnit, though it is a bit more rudimentary. To see these benchmarks, run:
 
 ```bash

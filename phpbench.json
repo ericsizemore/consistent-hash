@@ -1,5 +1,22 @@
 {
-  "$schema":"./vendor/phpbench/phpbench/phpbench.schema.json",
-  "runner.bootstrap": "vendor/autoload.php",
-  "runner.path": "tests/Bench"
+    "$schema":"./vendor/phpbench/phpbench/phpbench.schema.json",
+    "console.ansi": true,
+    "runner.bootstrap": "vendor/autoload.php",
+    "runner.path": "tests/Bench",
+    "report.generators": {
+        "hashing": {
+            "title": "LookupBench Hasher",
+            "description": "Test",
+            "generator": "component",
+            "components": [
+                {
+                    "component": "bar_chart_aggregate",
+                    "x_partition": "'Count: ' ~ variant_params['count']",
+                    "bar_partition": "variant_params['algo']",
+                    "y_expr": "mode(partition['result_time_avg']) as time",
+                    "y_axes_label": "yValue as time"
+                }
+            ]
+        }
+    }
 }

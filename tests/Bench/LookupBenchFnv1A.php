@@ -48,7 +48,7 @@ final class LookupBenchFnv1A
     /**
      * @param array{count: int} $params
      */
-    #[ParamProviders(['provideLookupCount'])]
+    #[ParamProviders(['provideLookupCount', 'provideHasher'])]
     public function benchLookup(array $params): void
     {
         foreach (range(0, $params['count'] - 1) as $i) {
@@ -56,12 +56,16 @@ final class LookupBenchFnv1A
         }
     }
 
+    public function provideHasher(): Generator
+    {
+        yield 'FNV1A' => ['algo' => 'FNV1A'];
+    }
+
     public function provideLookupCount(): Generator
     {
         yield '10_000 lookups' => ['count' => 10_000];
         yield '20_000 lookups' => ['count' => 20_000];
         yield '40_000 lookups' => ['count' => 40_000];
-        yield '80_000 lookups' => ['count' => 80_000];
         yield '100_000 lookups' => ['count' => 100_000];
     }
 }
