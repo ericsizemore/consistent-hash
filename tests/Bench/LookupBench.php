@@ -16,9 +16,9 @@ declare(strict_types=1);
 namespace Esi\ConsistentHash\Tests\Bench;
 
 use Esi\ConsistentHash\ConsistentHash;
-use Esi\ConsistentHash\Hasher\HasherInterface;
 use Esi\ConsistentHash\Hasher\Crc32Hasher;
 use Esi\ConsistentHash\Hasher\Fnv1AHasher;
+use Esi\ConsistentHash\Hasher\HasherInterface;
 use Esi\ConsistentHash\Hasher\Md5Hasher;
 use Esi\ConsistentHash\Hasher\Murmur3Hasher;
 use Esi\ConsistentHash\Hasher\Xxh32Hasher;
