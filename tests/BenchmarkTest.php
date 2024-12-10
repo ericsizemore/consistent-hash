@@ -94,11 +94,10 @@ class BenchmarkTest extends TestCase
 
         $distribution = [];
         foreach ($hashSpace->getAllTargets() as $target) {
-            /**
-             * @psalm-var non-empty-array<array-key, int> $distribution
-             */
             $distribution[$target] = \count(array_keys($results, $target, true));
         }
+
+        \assert($distribution !== []);
 
         $this->dump(\sprintf(
             'Distribution of %d lookups per target (min/max/median/avg): %d/%d/%d/%d',
@@ -285,7 +284,7 @@ class BenchmarkTest extends TestCase
         sort($values);
 
         $count       = \count($values);
-        $middleFloor = floor($count / 2);
+        $middleFloor = (int) floor($count / 2);
 
         if ($count % 2 === 1) {
             return $values[$middleFloor];
