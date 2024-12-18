@@ -42,7 +42,7 @@ class ConsistentHashTest extends TestCase
         $hashSpace->addTarget('t-b');
         $hashSpace->addTarget('t-c');
 
-        self::assertEquals(['t-a', 't-b', 't-c'], $hashSpace->getAllTargets());
+        self::assertSame(['t-a', 't-b', 't-c'], $hashSpace->getAllTargets());
     }
 
     public function testAddTargetsAndGetAllTargets(): void
@@ -51,7 +51,7 @@ class ConsistentHashTest extends TestCase
 
         $hashSpace = new ConsistentHash();
         $hashSpace->addTargets($targets);
-        self::assertEquals($hashSpace->getAllTargets(), $targets);
+        self::assertSame($hashSpace->getAllTargets(), $targets);
     }
 
     public function testAddTargetThrowsExceptionOnDuplicateTarget(): void
@@ -78,24 +78,24 @@ class ConsistentHashTest extends TestCase
 
         $mockHasher->setHashValue(15);
 
-        self::assertEquals('t2', $hashSpace->lookup('resource'));
-        self::assertEquals(
+        self::assertSame('t2', $hashSpace->lookup('resource'));
+        self::assertSame(
             ['t2', 't3', 't1'],
             $hashSpace->lookupList('resource', 3),
         );
 
         $hashSpace->removeTarget('t2');
 
-        self::assertEquals('t3', $hashSpace->lookup('resource'));
-        self::assertEquals(
+        self::assertSame('t3', $hashSpace->lookup('resource'));
+        self::assertSame(
             ['t3', 't1'],
             $hashSpace->lookupList('resource', 3),
         );
 
         $hashSpace->removeTarget('t3');
 
-        self::assertEquals('t1', $hashSpace->lookup('resource'));
-        self::assertEquals(
+        self::assertSame('t1', $hashSpace->lookup('resource'));
+        self::assertSame(
             ['t1'],
             $hashSpace->lookupList('resource', 3),
         );
@@ -103,7 +103,7 @@ class ConsistentHashTest extends TestCase
     public function testGetAllTargetsEmpty(): void
     {
         $hashSpace = new ConsistentHash();
-        self::assertEquals([], $hashSpace->getAllTargets());
+        self::assertSame([], $hashSpace->getAllTargets());
     }
 
     public function testGetMoreTargetsThanExist(): void
@@ -127,7 +127,7 @@ class ConsistentHashTest extends TestCase
 
         $targets = $hashSpace->lookupList('resource', 2);
 
-        self::assertEquals(2, \count($targets));
+        self::assertCount(2, $targets);
         self::assertNotEquals($targets[0], $targets[1]);
     }
 
@@ -154,7 +154,7 @@ class ConsistentHashTest extends TestCase
         $mockHasher->setHashValue(35);
         $targets = $hashSpace->lookupList('resource', 4);
 
-        self::assertEquals(['t4', 't5', 't1', 't2'], $targets);
+        self::assertSame(['t4', 't5', 't1', 't2'], $targets);
     }
 
     public function testGetMultipleTargetsWithOnlyOneTarget(): void
@@ -165,7 +165,7 @@ class ConsistentHashTest extends TestCase
         $targets = $hashSpace->lookupList('resource', 2);
 
         self::assertCount(1, $targets);
-        self::assertEquals('single-target', $targets[0]);
+        self::assertSame('single-target', $targets[0]);
     }
 
     public function testGetMultipleTargetsWithoutGettingAnyBeforeLoopToStart(): void
@@ -185,7 +185,7 @@ class ConsistentHashTest extends TestCase
         $mockHasher->setHashValue(100);
         $targets = $hashSpace->lookupList('resource', 2);
 
-        self::assertEquals(['t1', 't2'], $targets);
+        self::assertSame(['t1', 't2'], $targets);
     }
 
     public function testGetMultipleTargetsWithoutNeedingToLoopToStart(): void
@@ -205,7 +205,7 @@ class ConsistentHashTest extends TestCase
         $mockHasher->setHashValue(15);
         $targets = $hashSpace->lookupList('resource', 2);
 
-        self::assertEquals(['t2', 't3'], $targets);
+        self::assertSame(['t2', 't3'], $targets);
     }
 
     public function testHashSpaceConsistentLookupsAfterAddingAndRemoving(): void
@@ -232,7 +232,7 @@ class ConsistentHashTest extends TestCase
 
         // This is probably optimistic, as adding/removing a target may
         // clobber existing targets and is not expected to restore them.
-        self::assertEquals($results1, $results2);
+        self::assertSame($results1, $results2);
     }
 
     public function testHashSpaceConsistentLookupsWithNewInstance(): void
@@ -257,7 +257,7 @@ class ConsistentHashTest extends TestCase
             $results2[] = $hashSpace2->lookup(\sprintf('t%s', $i));
         }
 
-        self::assertEquals($results1, $results2);
+        self::assertSame($results1, $results2);
     }
 
     public function testHashSpaceLookupListEmpty(): void
@@ -299,8 +299,8 @@ class ConsistentHashTest extends TestCase
             $hashSpace->addTarget(\sprintf('target%s', $i));
         }
 
-        self::assertEquals($hashSpace->lookup('t1'), $hashSpace->lookup('t1'));
-        self::assertEquals($hashSpace->lookup('t2'), $hashSpace->lookup('t2'));
+        self::assertSame($hashSpace->lookup('t1'), $hashSpace->lookup('t1'));
+        self::assertSame($hashSpace->lookup('t2'), $hashSpace->lookup('t2'));
     }
 
     public function testRemoveTarget(): void
@@ -310,7 +310,7 @@ class ConsistentHashTest extends TestCase
         $hashSpace->addTarget('t-b');
         $hashSpace->addTarget('t-c');
         $hashSpace->removeTarget('t-b');
-        self::assertEquals(['t-a', 't-c'], $hashSpace->getAllTargets());
+        self::assertSame(['t-a', 't-c'], $hashSpace->getAllTargets());
     }
 
     public function testRemoveTargetFailsOnMissingTarget(): void

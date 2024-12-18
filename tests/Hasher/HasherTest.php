@@ -43,8 +43,8 @@ class HasherTest extends TestCase
         $result2 = $hasher->hash('test');
         $result3 = $hasher->hash('different');
 
-        self::assertEquals($result1, $result2);
-        self::assertNotEquals($result1, $result3); // fragile but worthwhile
+        self::assertSame($result1, $result2);
+        self::assertNotSame($result1, $result3); // fragile but worthwhile
     }
 
     public function testCrc32HashSpaceLookupsAreValidTargets(): void
@@ -72,8 +72,8 @@ class HasherTest extends TestCase
         $result2 = $hasher->hash('test');
         $result3 = $hasher->hash('different');
 
-        self::assertEquals($result1, $result2);
-        self::assertNotEquals($result1, $result3); // fragile but worthwhile
+        self::assertSame($result1, $result2);
+        self::assertNotSame($result1, $result3); // fragile but worthwhile
     }
 
     public function testFnv1AHashSpaceLookupsAreValidTargets(): void
@@ -101,8 +101,8 @@ class HasherTest extends TestCase
         $result2 = $hasher->hash('test');
         $result3 = $hasher->hash('different');
 
-        self::assertEquals($result1, $result2);
-        self::assertNotEquals($result1, $result3); // fragile but worthwhile
+        self::assertSame($result1, $result2);
+        self::assertNotSame($result1, $result3); // fragile but worthwhile
     }
 
     public function testMd5HashSpaceLookupsAreValidTargets(): void
@@ -130,8 +130,8 @@ class HasherTest extends TestCase
         $result2 = $hasher->hash('test');
         $result3 = $hasher->hash('different');
 
-        self::assertEquals($result1, $result2);
-        self::assertNotEquals($result1, $result3); // fragile but worthwhile
+        self::assertSame($result1, $result2);
+        self::assertNotSame($result1, $result3); // fragile but worthwhile
     }
 
     public function testMurmur3HashSpaceLookupsAreValidTargets(): void
@@ -159,8 +159,8 @@ class HasherTest extends TestCase
         $result2 = $hasher->hash('test');
         $result3 = $hasher->hash('different');
 
-        self::assertEquals($result1, $result2);
-        self::assertNotEquals($result1, $result3); // fragile but worthwhile
+        self::assertSame($result1, $result2);
+        self::assertNotSame($result1, $result3); // fragile but worthwhile
     }
 
     public function testXxh32HashSpaceLookupsAreValidTargets(): void
