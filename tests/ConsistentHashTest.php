@@ -115,7 +115,7 @@ class ConsistentHashTest extends TestCase
         $targets = $hashSpace->lookupList('resource', 4);
 
         self::assertCount(2, $targets);
-        self::assertNotEquals($targets[0], $targets[1]);
+        self::assertNotSame($targets[0], $targets[1]);
     }
 
     public function testGetMultipleTargets(): void
@@ -128,7 +128,7 @@ class ConsistentHashTest extends TestCase
         $targets = $hashSpace->lookupList('resource', 2);
 
         self::assertCount(2, $targets);
-        self::assertNotEquals($targets[0], $targets[1]);
+        self::assertNotSame($targets[0], $targets[1]);
     }
 
     public function testGetMultipleTargetsNeedingToLoopToStart(): void
