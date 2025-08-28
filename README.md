@@ -99,7 +99,6 @@ $ composer run-script phpunit:benchmark
 
 - [Eric Sizemore](https://github.com/ericsizemore)
 - [All Contributors](https://github.com/ericsizemore/consistent-hash/contributors)
-- Special thanks to [JetBrains](https://www.jetbrains.com/?from=esi-consistent-hash) for their Licenses for Open Source Development
 
 And thanks to the library this is a fork of, [flexihash/flexihash](https://github.com/pda/flexihash):
 
