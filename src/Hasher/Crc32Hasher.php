@@ -15,12 +15,17 @@ declare(strict_types=1);
 
 namespace Esi\ConsistentHash\Hasher;
 
+use Override;
+
+use function crc32;
+
 /**
  * Uses CRC32 to hash a value into a signed 32bit int address space.
  * Under 32bit PHP this (safely) overflows into negatives ints.
  */
-class Crc32Hasher implements HasherInterface
+final class Crc32Hasher implements HasherInterface
 {
+    #[Override]
     public function hash(string $string): int
     {
         return crc32($string);

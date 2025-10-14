@@ -6,7 +6,7 @@ The contributing guidelines for this project are heavily inspired by, and borrow
 
 ## Welcome!
 
-This project accepts contributions of code and documentation from the community. 
+This project accepts contributions of code and documentation from the community.
 These contributions can be made in the form of Issues or [Pull Requests](http://help.github.com/send-pull-requests/) on the [library's repository](https://github.com/ericsizemore/consistent-hash).
 
 Here are some examples how you can contribute:
@@ -15,7 +15,7 @@ Here are some examples how you can contribute:
 * [Propose a new feature](https://github.com/ericsizemore/consistent-hash/issues/new?labels=enhancement,unverified&template=2-feature_request.yml)
 * [Send a pull request](https://github.com/ericsizemore/consistent-hash/pulls)
 
-I look forward to your contributions! 
+I look forward to your contributions!
 
 ## Code of Conduct
 
@@ -29,8 +29,8 @@ When you submit code changes, your submissions are understood to be under the sa
 
 - Fork the repository.
 - Create your branch from `main` if you plan to implement new functionality or change existing code significantly.
-  - Create your branch from the oldest branch that is affected by the bug if you plan to fix a bug.
-  - Pull requests for bug fixes must be made for the oldest branch that is [supported](https://github.com/ericsizemore/consistent-hash/blob/main/SECURITY.md).
+    - Create your branch from the oldest branch that is affected by the bug if you plan to fix a bug.
+    - Pull requests for bug fixes must be made for the oldest branch that is [supported](https://github.com/ericsizemore/consistent-hash/blob/main/SECURITY.md).
 - Implement your change and add tests for it.
 - Ensure the test suite passes.
 - Ensure the code complies with our coding guidelines (see below).
@@ -74,14 +74,6 @@ No configuration is needed for [PHPUnit Coverage Check](https://github.com/erics
 
 ```bash
 $ composer run-script code-coverage
-```
-
-#### Infection (mutation testing)
-
-The configuration file can be found at `infection.json5`, in the repository, for [Infection](https://infection.github.io/guide/). You can use Infection to perform mutation testing:
-
-```bash
-$ composer run-script infection
 ```
 
 #### PHPStan

@@ -15,6 +15,12 @@ declare(strict_types=1);
 
 namespace Esi\ConsistentHash\Hasher;
 
+use Override;
+
+use function hash;
+use function hexdec;
+use function substr;
+
 /**
  * Uses MurmurHash3 to hash a value into a 32bit int.
  *
@@ -24,7 +30,7 @@ namespace Esi\ConsistentHash\Hasher;
  *
  * @see https://github.com/aappleby/smhasher
  */
-class Murmur3Hasher implements HasherInterface
+final class Murmur3Hasher implements HasherInterface
 {
     /**
      * {@inheritDoc}
@@ -36,6 +42,7 @@ class Murmur3Hasher implements HasherInterface
      * treated as ints if all digits are ints and this results in unexpected
      * sorting order.
      */
+    #[Override]
     public function hash(string $string): int
     {
         return (int) hexdec(substr(hash('murmur3a', $string), 0, 8));

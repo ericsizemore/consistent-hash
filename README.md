@@ -10,7 +10,7 @@
 [![Downloads per Month](https://img.shields.io/packagist/dm/esi/consistent-hash.svg)](https://packagist.org/packages/esi/consistent-hash)
 [![License](https://img.shields.io/packagist/l/esi/consistent-hash.svg)](https://packagist.org/packages/esi/consistent-hash)
 
-Esi\ConsistentHash is a small PHP library which implements [consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing), which is most useful in distributed caching.
+'Consistent Hash' is a small PHP library, which implements [consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing), which is most useful in distributed caching.
 
 > [!NOTE]
 > This library is a fork of https://github.com/pda/flexihash v3.0.0. The original library has not seen any releases since 2020.
@@ -93,7 +93,7 @@ $ composer run-script phpunit:benchmark
 
 ### Requirements
 
-* PHP >= 8.2
+* PHP >= 8.3
 
 ### Credits
 

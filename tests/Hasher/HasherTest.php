@@ -25,6 +25,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
+use function range;
+
 /**
  * @internal
  */
@@ -34,14 +36,14 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Murmur3Hasher::class)]
 #[CoversClass(Xxh32Hasher::class)]
 #[UsesClass(ConsistentHash::class)]
-class HasherTest extends TestCase
+final class HasherTest extends TestCase
 {
     public function testCrc32Hash(): void
     {
-        $hasher  = new Crc32Hasher();
-        $result1 = $hasher->hash('test');
-        $result2 = $hasher->hash('test');
-        $result3 = $hasher->hash('different');
+        $crc32Hasher = new Crc32Hasher();
+        $result1     = $crc32Hasher->hash('test');
+        $result2     = $crc32Hasher->hash('test');
+        $result3     = $crc32Hasher->hash('different');
 
         self::assertSame($result1, $result2);
         self::assertNotSame($result1, $result3); // fragile but worthwhile
@@ -50,16 +52,18 @@ class HasherTest extends TestCase
     public function testCrc32HashSpaceLookupsAreValidTargets(): void
     {
         $targets = [];
+
         foreach (range(1, 10) as $i) {
             $targets[] = \sprintf('target%s', $i);
         }
 
-        $hashSpace = new ConsistentHash(new Crc32Hasher());
-        $hashSpace->addTargets($targets);
+        $consistentHash = new ConsistentHash(new Crc32Hasher());
+        $consistentHash->addTargets($targets);
 
         foreach (range(1, 10) as $i) {
-            self::assertTrue(
-                \in_array($hashSpace->lookup(\sprintf('r%s', $i)), $targets, true),
+            self::assertContains(
+                $consistentHash->lookup(\sprintf('r%s', $i)),
+                $targets,
                 'target must be in list of targets',
             );
         }
@@ -67,10 +71,10 @@ class HasherTest extends TestCase
 
     public function testFnv1AHash(): void
     {
-        $hasher  = new Fnv1AHasher();
-        $result1 = $hasher->hash('test');
-        $result2 = $hasher->hash('test');
-        $result3 = $hasher->hash('different');
+        $fnv1AHasher = new Fnv1AHasher();
+        $result1     = $fnv1AHasher->hash('test');
+        $result2     = $fnv1AHasher->hash('test');
+        $result3     = $fnv1AHasher->hash('different');
 
         self::assertSame($result1, $result2);
         self::assertNotSame($result1, $result3); // fragile but worthwhile
@@ -79,16 +83,18 @@ class HasherTest extends TestCase
     public function testFnv1AHashSpaceLookupsAreValidTargets(): void
     {
         $targets = [];
+
         foreach (range(1, 10) as $i) {
             $targets[] = \sprintf('target%s', $i);
         }
 
-        $hashSpace = new ConsistentHash(new Fnv1AHasher());
-        $hashSpace->addTargets($targets);
+        $consistentHash = new ConsistentHash(new Fnv1AHasher());
+        $consistentHash->addTargets($targets);
 
         foreach (range(1, 10) as $i) {
-            self::assertTrue(
-                \in_array($hashSpace->lookup(\sprintf('r%s', $i)), $targets, true),
+            self::assertContains(
+                $consistentHash->lookup(\sprintf('r%s', $i)),
+                $targets,
                 'target must be in list of targets',
             );
         }
@@ -96,10 +102,10 @@ class HasherTest extends TestCase
 
     public function testMd5Hash(): void
     {
-        $hasher  = new Md5Hasher();
-        $result1 = $hasher->hash('test');
-        $result2 = $hasher->hash('test');
-        $result3 = $hasher->hash('different');
+        $md5Hasher = new Md5Hasher();
+        $result1   = $md5Hasher->hash('test');
+        $result2   = $md5Hasher->hash('test');
+        $result3   = $md5Hasher->hash('different');
 
         self::assertSame($result1, $result2);
         self::assertNotSame($result1, $result3); // fragile but worthwhile
@@ -108,16 +114,18 @@ class HasherTest extends TestCase
     public function testMd5HashSpaceLookupsAreValidTargets(): void
     {
         $targets = [];
+
         foreach (range(1, 10) as $i) {
             $targets[] = \sprintf('target%s', $i);
         }
 
-        $hashSpace = new ConsistentHash(new Md5Hasher());
-        $hashSpace->addTargets($targets);
+        $consistentHash = new ConsistentHash(new Md5Hasher());
+        $consistentHash->addTargets($targets);
 
         foreach (range(1, 10) as $i) {
-            self::assertTrue(
-                \in_array($hashSpace->lookup(\sprintf('r%s', $i)), $targets, true),
+            self::assertContains(
+                $consistentHash->lookup(\sprintf('r%s', $i)),
+                $targets,
                 'target must be in list of targets',
             );
         }
@@ -125,10 +133,10 @@ class HasherTest extends TestCase
 
     public function testMurmur3Hash(): void
     {
-        $hasher  = new Murmur3Hasher();
-        $result1 = $hasher->hash('test');
-        $result2 = $hasher->hash('test');
-        $result3 = $hasher->hash('different');
+        $murmur3Hasher = new Murmur3Hasher();
+        $result1       = $murmur3Hasher->hash('test');
+        $result2       = $murmur3Hasher->hash('test');
+        $result3       = $murmur3Hasher->hash('different');
 
         self::assertSame($result1, $result2);
         self::assertNotSame($result1, $result3); // fragile but worthwhile
@@ -137,16 +145,18 @@ class HasherTest extends TestCase
     public function testMurmur3HashSpaceLookupsAreValidTargets(): void
     {
         $targets = [];
+
         foreach (range(1, 10) as $i) {
             $targets[] = \sprintf('target%s', $i);
         }
 
-        $hashSpace = new ConsistentHash(new Murmur3Hasher());
-        $hashSpace->addTargets($targets);
+        $consistentHash = new ConsistentHash(new Murmur3Hasher());
+        $consistentHash->addTargets($targets);
 
         foreach (range(1, 10) as $i) {
-            self::assertTrue(
-                \in_array($hashSpace->lookup(\sprintf('r%s', $i)), $targets, true),
+            self::assertContains(
+                $consistentHash->lookup(\sprintf('r%s', $i)),
+                $targets,
                 'target must be in list of targets',
             );
         }
@@ -154,10 +164,10 @@ class HasherTest extends TestCase
 
     public function testXxh32Hash(): void
     {
-        $hasher  = new Xxh32Hasher();
-        $result1 = $hasher->hash('test');
-        $result2 = $hasher->hash('test');
-        $result3 = $hasher->hash('different');
+        $xxh32Hasher = new Xxh32Hasher();
+        $result1     = $xxh32Hasher->hash('test');
+        $result2     = $xxh32Hasher->hash('test');
+        $result3     = $xxh32Hasher->hash('different');
 
         self::assertSame($result1, $result2);
         self::assertNotSame($result1, $result3); // fragile but worthwhile
@@ -166,16 +176,18 @@ class HasherTest extends TestCase
     public function testXxh32HashSpaceLookupsAreValidTargets(): void
     {
         $targets = [];
+
         foreach (range(1, 10) as $i) {
             $targets[] = \sprintf('target%s', $i);
         }
 
-        $hashSpace = new ConsistentHash(new Xxh32Hasher());
-        $hashSpace->addTargets($targets);
+        $consistentHash = new ConsistentHash(new Xxh32Hasher());
+        $consistentHash->addTargets($targets);
 
         foreach (range(1, 10) as $i) {
-            self::assertTrue(
-                \in_array($hashSpace->lookup(\sprintf('r%s', $i)), $targets, true),
+            self::assertContains(
+                $consistentHash->lookup(\sprintf('r%s', $i)),
+                $targets,
                 'target must be in list of targets',
             );
         }

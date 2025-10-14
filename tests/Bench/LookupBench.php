@@ -31,7 +31,7 @@ use function range;
 
 final class LookupBench
 {
-    private ConsistentHash $hasher;
+    private ConsistentHash $consistentHash;
 
     /** @var list<string> */
     private array $randomKeys = [];
@@ -50,14 +50,14 @@ final class LookupBench
     #[ParamProviders(['provideLookupCount', 'provideHashers'])]
     public function benchLookup(array $params): void
     {
-        $this->hasher = new ConsistentHash(new $params['algo'](), 64);
+        $this->consistentHash = new ConsistentHash(new $params['algo'](), 64);
 
         foreach (range(1, 10) as $i) {
-            $this->hasher->addTarget('target_' . $i, 1);
+            $this->consistentHash->addTarget('target_' . $i, 1);
         }
 
         foreach (range(0, $params['count'] - 1) as $i) {
-            $this->hasher->lookup($this->randomKeys[$i]);
+            $this->consistentHash->lookup($this->randomKeys[$i]);
         }
     }
 

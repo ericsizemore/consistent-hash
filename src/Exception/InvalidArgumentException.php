@@ -15,28 +15,22 @@ declare(strict_types=1);
 
 namespace Esi\ConsistentHash\Exception;
 
-/**
- * An exception thrown by ConsistentHash.
- */
-final class TargetException extends \RuntimeException
+use InvalidArgumentException as BaseInvalidArgumentException;
+
+final class InvalidArgumentException extends BaseInvalidArgumentException
 {
     protected function __construct(string $message)
     {
         parent::__construct($message);
     }
 
-    public static function alreadyExists(string $target): self
+    public static function invalidReplicaAmount(int $replicas): self
     {
-        return new self(\sprintf("Target '%s' already exists.", $target));
+        return new self(\sprintf("\$replicas expects a value greater than 0, '%d' provided.", $replicas));
     }
 
-    public static function doesNotExist(string $target): self
+    public static function invalidWeight(float $weight): self
     {
-        return new self(\sprintf("Target '%s' does not exist.", $target));
-    }
-
-    public static function noneExist(): self
-    {
-        return new self('No targets exist');
+        return new self(\sprintf("\$weight expects a value greater than 0.0, '%.2f' provided.", $weight));
     }
 }

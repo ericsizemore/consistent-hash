@@ -16,14 +16,16 @@ declare(strict_types=1);
 namespace Esi\ConsistentHash\Tests\Hasher;
 
 use Esi\ConsistentHash\Hasher\HasherInterface;
+use Override;
 
 /**
  * @internal
  */
-class MockHasher implements HasherInterface
+final class MockHasher implements HasherInterface
 {
     public function __construct(private int $hashValue) {}
 
+    #[Override]
     public function hash(string $string): int
     {
         return $this->hashValue;

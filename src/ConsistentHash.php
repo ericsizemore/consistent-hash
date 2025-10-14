@@ -15,6 +15,7 @@ declare(strict_types=1);
 
 namespace Esi\ConsistentHash;
 
+use Esi\ConsistentHash\Exception\InvalidArgumentException;
 use Esi\ConsistentHash\Exception\TargetException;
 use Esi\ConsistentHash\Hasher\Crc32Hasher;
 use Esi\ConsistentHash\Hasher\HasherInterface;
@@ -24,6 +25,7 @@ use function array_keys;
 use function array_unique;
 use function array_values;
 use function ksort;
+use function min;
 use function round;
 
 use const SORT_REGULAR;
@@ -31,13 +33,8 @@ use const SORT_REGULAR;
 /**
  * A simple consistent hashing implementation with pluggable hash algorithms.
  */
-class ConsistentHash
+final class ConsistentHash
 {
-    /**
-     * The hash algorithm, encapsulated in a HasherInterface implementation.
-     */
-    private HasherInterface $hasher;
-
     /**
      * Internal counter for current number of positions.
      */
@@ -55,11 +52,6 @@ class ConsistentHash
      */
     private bool $positionToTargetSorted = false;
 
-    /**
-     * The number of positions to hash each target to.
-     */
-    private int $replicas = 64;
-
     /** @var list<int> */
     private array $sortedPositions = [];
 
@@ -76,33 +68,38 @@ class ConsistentHash
     private array $targetToPositions = [];
 
     /**
-     * @param null|HasherInterface $hasher
-     * @param null|int             $replicas Amount of positions to hash each target to.
+     * @param HasherInterface $hasher   The hash algorithm, encapsulated in a HasherInterface implementation.
+     * @param int             $replicas Amount of positions to hash each target to.
+     *
+     * @throws InvalidArgumentException If $replicas is not greater than 0.
      */
-    public function __construct(null|HasherInterface $hasher = null, null|int $replicas = null)
-    {
-        $this->hasher = $hasher ?? new Crc32Hasher();
-
-        if ($replicas === null) {
-            return;
+    public function __construct(
+        private readonly HasherInterface $hasher = new Crc32Hasher(),
+        private readonly int $replicas = 64
+    ) {
+        if ($replicas < 1) {
+            throw InvalidArgumentException::invalidReplicaAmount($replicas);
         }
-
-        $this->replicas = $replicas;
     }
 
     /**
-     * @throws TargetException if the $target already exists.
+     * @throws TargetException          if the $target already exists.
+     * @throws InvalidArgumentException if the $weight is less than 0.0.
      */
-    public function addTarget(string $target, float $weight = 1): void
+    public function addTarget(string $target, float $weight = 1.0): void
     {
         if (\array_key_exists($target, $this->targetToPositions)) {
             throw TargetException::alreadyExists($target);
         }
 
+        if ($weight <= 0.0) {
+            throw InvalidArgumentException::invalidWeight($weight);
+        }
+
         $this->targetToPositions[$target] = [];
 
         // Hash the target into multiple positions.
-        $partitionCount = round($this->replicas * $weight);
+        $partitionCount = round((float) $this->replicas * $weight);
 
         for ($i = 0; $i < $partitionCount; ++$i) {
             $position                           = $this->hasher->hash($target . $i);
@@ -110,8 +107,8 @@ class ConsistentHash
             $this->targetToPositions[$target][] = $position; // Target removal.
         }
 
-        $this->positionToTargetSorted = false;
         ++$this->targetCount;
+        $this->positionToTargetSorted = false;
     }
 
     /**
@@ -121,7 +118,7 @@ class ConsistentHash
      *
      * @throws TargetException if any of $targets already exists.
      */
-    public function addTargets(array $targets, float $weight = 1): void
+    public function addTargets(array $targets, float $weight = 1.0): void
     {
         foreach ($targets as $target) {
             $this->addTarget($target, $weight);
@@ -147,7 +144,7 @@ class ConsistentHash
     {
         $targets = $this->lookupList($resource, 1);
 
-        if (\count($targets) === 0) {
+        if ($targets === []) {
             throw TargetException::noneExist();
         }
 
@@ -157,6 +154,12 @@ class ConsistentHash
     /**
      * Get a list of targets for the resource, in order of precedence.
      * Up to $requestedCount targets are returned, less if there are fewer in total.
+     *
+     *  Example:
+     *  ```
+     *  $hash->addTargets(['server1', 'server2', 'server3']);
+     *  $servers = $hash->lookupList('my-key', 2); // ['server2', 'server1']
+     *  ```
      *
      * @param positive-int $requestedCount The length of the list to return
      *
@@ -184,11 +187,13 @@ class ConsistentHash
         $resCount = 1;
         $results  = [];
 
-        do {
+        $maxIterations = min($requestedCount, $this->targetCount);
+
+        while ($resCount++ <= $maxIterations) {
             $offset %= $this->positionCount;
             $results[] = $this->positionToTarget[$this->sortedPositions[$offset]];
-            $offset++;
-        } while ($resCount++ < $requestedCount);
+            ++$offset;
+        }
 
         return array_values(array_unique($results));
     }

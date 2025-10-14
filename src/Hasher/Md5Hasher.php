@@ -15,6 +15,8 @@ declare(strict_types=1);
 
 namespace Esi\ConsistentHash\Hasher;
 
+use Override;
+
 use function hexdec;
 use function md5;
 use function substr;
@@ -22,7 +24,7 @@ use function substr;
 /**
  * Uses MD5 to hash a value into a 32bit int.
  */
-class Md5Hasher implements HasherInterface
+final class Md5Hasher implements HasherInterface
 {
     /**
      * {@inheritDoc}
@@ -34,6 +36,7 @@ class Md5Hasher implements HasherInterface
      * treated as ints if all digits are ints and this results in unexpected
      * sorting order.
      */
+    #[Override]
     public function hash(string $string): int
     {
         return (int) hexdec(substr(md5($string), 0, 8));
