@@ -61,6 +61,9 @@ final class LookupBench
         }
     }
 
+    /**
+     * @return Generator<string, array{algo: class-string}>
+     */
     public function provideHashers(): Generator
     {
         yield 'CRC32' => ['algo' => Crc32Hasher::class];
@@ -70,6 +73,9 @@ final class LookupBench
         yield 'XXH32' => ['algo' => Xxh32Hasher::class];
     }
 
+    /**
+     * @return Generator<string, array{count: int<10000,100000>}>
+     */
     public function provideLookupCount(): Generator
     {
         yield '10_000 lookups' => ['count' => 10_000];
