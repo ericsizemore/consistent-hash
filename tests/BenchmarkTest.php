@@ -148,28 +148,28 @@ final class BenchmarkTest extends TestCase
         $start   = microtime(true);
 
         for ($i = 0; $i < $hashCount; ++$i) {
-            $crc32Hasher->hash('test' . $i);
+            $crc32Hasher->hash('test' . $i); // @phpstan-ignore method.resultUnused
         }
 
         $timeCrc32 = microtime(true) - $start;
         $start     = microtime(true);
 
         for ($i = 0; $i < $hashCount; ++$i) {
-            $fnv1AHasher->hash('test' . $i);
+            $fnv1AHasher->hash('test' . $i); // @phpstan-ignore method.resultUnused
         }
 
         $timeFnv1 = microtime(true) - $start;
         $start    = microtime(true);
 
         for ($i = 0; $i < $hashCount; ++$i) {
-            $murmur3Hasher->hash('test' . $i);
+            $murmur3Hasher->hash('test' . $i); // @phpstan-ignore method.resultUnused
         }
 
         $timeMurmur3 = microtime(true) - $start;
         $start       = microtime(true);
 
         for ($i = 0; $i < $hashCount; ++$i) {
-            $xxh32Hasher->hash('test' . $i);
+            $xxh32Hasher->hash('test' . $i); // @phpstan-ignore method.resultUnused
         }
 
         $timeXxh32 = microtime(true) - $start;
