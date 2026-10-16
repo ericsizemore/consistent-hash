@@ -25,6 +25,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
+use function method_exists;
 use function range;
 
 /**
@@ -315,13 +316,22 @@ final class ConsistentHashTest extends TestCase
     {
         $consistentHash = new ConsistentHash();
 
-        self::assertEmpty($consistentHash->lookupList('t1', 2));
+        self::assertEquals([], $consistentHash->lookupList('t1', 2));
     }
 
+    /**
+     * @psalm-suppress DeprecatedMethod
+     */
     public function testHashSpaceLookupListNoTargets(): void
     {
         $this->expectException(TargetException::class);
-        $this->expectExceptionMessage('No targets exist');
+
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // @phpstan-ignore function.alreadyNarrowedType
+            $this->expectExceptionMessageIsOrContains('No targets exist');
+        } else {
+            $this->expectExceptionMessage('No targets exist'); // @phpstan-ignore method.deprecated
+        }
+
         $consistentHash = new ConsistentHash();
         $consistentHash->lookup('t1');
     }

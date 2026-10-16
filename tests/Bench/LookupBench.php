@@ -39,7 +39,7 @@ final class LookupBench
     public function __construct()
     {
         // Generate random lookup keys outside the measurement function.
-        foreach (range(1, 100_000) as $ignored) {
+        foreach (range(1, 100_000) as $_) {
             $this->randomKeys[] = bin2hex(random_bytes(12));
         }
     }
