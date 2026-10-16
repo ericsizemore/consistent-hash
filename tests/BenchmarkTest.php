@@ -141,14 +141,14 @@ final class BenchmarkTest extends TestCase
         $start = microtime(true);
 
         for ($i = 0; $i < $hashCount; ++$i) {
-            $md5Hasher->hash('test' . $i); // @phpstan-ignore method.resultUnused
+            $md5Hasher->hash('test' . $i);
         }
 
         $timeMd5 = microtime(true) - $start;
         $start   = microtime(true);
 
         for ($i = 0; $i < $hashCount; ++$i) {
-            $crc32Hasher->hash('test' . $i); // @phpstan-ignore method.resultUnused
+            $crc32Hasher->hash('test' . $i);
         }
 
         $timeCrc32 = microtime(true) - $start;

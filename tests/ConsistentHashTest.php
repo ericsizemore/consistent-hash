@@ -326,10 +326,10 @@ final class ConsistentHashTest extends TestCase
     {
         $this->expectException(TargetException::class);
 
-        if (method_exists($this, 'expectExceptionMessageIsOrContains')) { // @phpstan-ignore function.alreadyNarrowedType
+        if (method_exists($this, 'expectExceptionMessageIsOrContains')) {
             $this->expectExceptionMessageIsOrContains('No targets exist');
         } else {
-            $this->expectExceptionMessage('No targets exist'); // @phpstan-ignore method.deprecated
+            $this->expectExceptionMessage('No targets exist');
         }
 
         $consistentHash = new ConsistentHash();
